@@ -1,9 +1,9 @@
-package br.com.senaisp.aula06;
+package br.com.senaisp.aula10;
 
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Aula06Exe04 {
+public class Aula10Exe04 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -16,7 +16,7 @@ public class Aula06Exe04 {
 			System.out.println("1 - Celsius");
 			System.out.println("2 - Fahrenheit");
 			System.out.println("3 - Kelvin");
-			int intTempOri = entradaTemperatura(sc);
+			int intTempOri;
 			do {
 				System.out.println("Temperatura Origem: (1 ou 2 ou 3)");
 				intTempOri = sc.nextInt();
@@ -57,22 +57,4 @@ public class Aula06Exe04 {
 			intResp = sc.nextInt();
 		}
 	}
-	/**
-	 * Função que dara entrada na temperatura e tratará os valores 
-	 * Entre 1, 2 ou 3
-	 * @param sc devera ser passado o scanner para entrada de dados
-	 * @return Retorna um valor inteiro entre 1 e 3
-	 */
-	public static int entradaTemperatura(Scanner sc) {
-		int intTempOri; 
-		do {
-			System.out.println("Temperatura Origem: (1 ou 2 ou 3)");
-			intTempOri = sc.nextInt();
-		} while (intTempOri != 1 && intTempOri != 2 && intTempOri != 3);
-		return intTempOri;
-	}
-	
-	
-	}
-	
-
+}
