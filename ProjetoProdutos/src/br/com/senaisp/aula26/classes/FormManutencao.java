@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +26,8 @@ public class FormManutencao extends JFrame {
 	private JFormattedTextField fmtPreco;
 	private int tipoEdicao;
 	private Produto prod;
+	private JButton btnPesquisar;
+	private JButton btnGravar = new JButton("Confirmar");
 
 	/**
 	 * Launch the application.
@@ -50,7 +53,10 @@ public class FormManutencao extends JFrame {
 
 		setTitle("Manuten\u00E7\u00E3o de Produtos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 552);
+		
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,7 +65,6 @@ public class FormManutencao extends JFrame {
 		JPanel panelBotoes = new JPanel();
 		contentPane.add(panelBotoes, BorderLayout.SOUTH);
 
-		JButton btnGravar = new JButton("Gravar");
 		panelBotoes.add(btnGravar);
 		btnGravar.addActionListener(evtClick);
 
@@ -80,16 +85,21 @@ public class FormManutencao extends JFrame {
 		panelCodigo.add(lblCodigo);
 
 		NumberFormat fmtI = NumberFormat.getInstance();
-        NumberFormatter fmttI =new NumberFormatter(fmtI);
-        fmttI.setValueClass(Integer.class);
-        fmttI.setMinimum(0);
-        fmttI.setMaximum(Integer.MAX_VALUE);
-        fmttI.setAllowsInvalid(false);
-        
+		NumberFormatter fmttI = new NumberFormatter(fmtI);
+		fmttI.setValueClass(Integer.class);
+		fmttI.setMinimum(0);
+		fmttI.setMaximum(Integer.MAX_VALUE);
+		fmttI.setAllowsInvalid(false);
+
 		fmtCodigo = new JFormattedTextField(fmttI);
 		panelCodigo.add(fmtCodigo);
 		fmtCodigo.setColumns(10);
 		fmtCodigo.setValue(0);
+
+		btnPesquisar = new JButton("...");
+		panelCodigo.add(btnPesquisar);
+		btnPesquisar.addActionListener(evtClick);
+		btnPesquisar.setVisible(false);
 
 		JPanel panelDescricao = new JPanel();
 		FlowLayout flowLayout_1 = (FlowLayout) panelDescricao.getLayout();
@@ -114,22 +124,37 @@ public class FormManutencao extends JFrame {
 		NumberFormat fmt = NumberFormat.getCurrencyInstance();
 		NumberFormatter fmtt = new NumberFormatter(fmt);
 		fmtt.setMinimum(0.00);
+		fmtt.setMaximum(99999999999.99);
+		fmtt.setAllowsInvalid(false);
 
 		fmtPreco = new JFormattedTextField(fmtt);
 		panelPreco.add(fmtPreco);
 		fmtPreco.setColumns(10);
 		fmtPreco.setValue(0.00);
+
 		panelPreco.add(fmtPreco);
 	}
 
 	public void setTipoEdicao(int tipoEdicao) {
 		this.tipoEdicao = tipoEdicao;
 		// Operação 1 - Cadastrar, 2 - Consultar, 3 - Alterar, 4 - Excluir
+		textDescricao.setEnabled(false);
+		fmtPreco.setEnabled(false);
+		btnGravar.setEnabled(false);
+
 		switch (tipoEdicao) {
 		case 1:
 			fmtCodigo.setValue(prod.getCodigo());
 			textDescricao.setText(prod.getDescricao());
 			fmtPreco.setValue(prod.getPreco());
+			textDescricao.setEnabled(true);
+			fmtPreco.setEnabled(true);
+			btnGravar.setEnabled(true);
+			break;
+		case 2:
+		case 3:
+		case 4:
+			btnPesquisar.setVisible(true);
 			break;
 
 		}
@@ -144,17 +169,52 @@ public class FormManutencao extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object cmp = e.getSource();
-			if (((JButton) cmp).getText() == "Gravar") {
+			if (((JButton) cmp).getText() == "Confirmar") {
 				prod.setCodigo((int) fmtCodigo.getValue());
 				prod.setDescricao(textDescricao.getText());
 				prod.setPreco((double) fmtPreco.getValue());
+				if (tipoEdicao == 1) {
+					prod.adicionar();
+				} else if (tipoEdicao == 3) {
+					prod.alterar();
+				} else if (tipoEdicao == 4) {
+					if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir?", "ATENÇÃO!!!",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-				prod.adicionar();
-			} else {
+						prod.excluir();
+					}
+
+				}
+		
+
+				dispose();
+			} else if (cmp == btnPesquisar)
+
+			{
+				if (prod.hasCodigo((int) fmtCodigo.getValue())) {
+					prod.setCodigo((int) fmtCodigo.getValue());
+					prod.consultar();
+					textDescricao.setText(prod.getDescricao());
+					fmtPreco.setValue(prod.getPreco());
+					// Alteração eu habilitar a edição de valores
+					if (tipoEdicao == 3) {
+						textDescricao.setEnabled(true);
+						fmtPreco.setEnabled(true);
+						fmtCodigo.setEnabled(false);
+
+					}
+				}
+				// Operador ternário
+				btnGravar.setEnabled(tipoEdicao > 2 ? true : false);
+				// ou
+				btnGravar.setEnabled(tipoEdicao > 2);
+			} else
+
+			{
 				dispose();
 
 			}
-
 		}
+
 	}
 }

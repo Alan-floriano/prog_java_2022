@@ -40,12 +40,16 @@ public class FormMain extends JFrame {
 	public FormMain() {
 		// Criando o objeto de eventos de click
 		EventoClick evtClick = new EventoClick();
-		
+
 		prod = new Produto();
 
 		setTitle("Formul\u00E1rio Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 552);
+		//Centralizando a janela
+		
+		setLocationRelativeTo(null);
+		
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -91,15 +95,47 @@ public class FormMain extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object cmp = e.getSource();
+
+			FormManutencao fmt;
+
 			switch (((JMenuItem) cmp).getText()) {
 
 			case "Adicionar":
-				FormManutencao fmt = new FormManutencao();
+				fmt = new FormManutencao();
 				prod.novo();
 				fmt.setProd(prod);
 				fmt.setTipoEdicao(1);
-				
+
 				fmt.setVisible(true);
+				break;
+			case "Consultar":
+				fmt = new FormManutencao();
+				prod.novo();
+				fmt.setProd(prod);
+				fmt.setTipoEdicao(2);
+
+				fmt.setVisible(true);
+				break;
+			case "Alterar":
+				fmt = new FormManutencao();
+				prod.novo();
+				fmt.setProd(prod);
+				fmt.setTipoEdicao(3);
+
+				fmt.setVisible(true);
+				break;
+			case "Excluir":
+				fmt = new FormManutencao();
+				prod.novo();
+				fmt.setProd(prod);
+				fmt.setTipoEdicao(4);
+
+				fmt.setVisible(true);
+				break;
+			case "Produtos Ascendentes":
+				FormListarProduto fml = new FormListarProduto();
+				fml.setProd(prod);
+				fml.setVisible(true);
 				break;
 
 			}
