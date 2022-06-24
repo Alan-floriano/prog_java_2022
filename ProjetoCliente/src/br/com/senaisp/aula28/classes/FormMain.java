@@ -1,19 +1,18 @@
 package br.com.senaisp.aula28.classes;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-public class FormMain extends JFrame {
+public class FormMain {
 
-	private JPanel contentPane;
+	private JFrame frmMenuPrincipal;
 
 	/**
 	 * Launch the application.
@@ -22,8 +21,8 @@ public class FormMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FormMain frame = new FormMain();
-					frame.setVisible(true);
+					FormMain window = new FormMain();
+					window.frmMenuPrincipal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,31 +31,56 @@ public class FormMain extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public FormMain() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		EventoClick evt = new EventoClick();
+		
+		frmMenuPrincipal = new JFrame();
+		frmMenuPrincipal.setTitle("Menu Principal");
+		frmMenuPrincipal.setBounds(100, 100, 682, 425);
+		frmMenuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		frmMenuPrincipal.setJMenuBar(menuBar);
 		
-		JMenu mnCadastros = new JMenu("Cadastro");
-		mnCadastros.setMnemonic('c');
+		JMenu mnCadastros = new JMenu("Cadastros");
+		mnCadastros.setMnemonic('C');
 		menuBar.add(mnCadastros);
 		
-		JButton btnClientes = new JButton("Clientes");
-		mnCadastros.add(btnClientes);
-		
-		JButton btnSair = new JButton("Sair");
-		mnCadastros.add(btnSair);
+		JMenuItem mntmCliente = new JMenuItem("Cliente");
+		mnCadastros.add(mntmCliente);
+		mntmCliente.addActionListener(evt);
 		
 		JSeparator separator = new JSeparator();
 		mnCadastros.add(separator);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mnCadastros.add(mntmSair);
+		mntmSair.addActionListener(evt);
 	}
+  class EventoClick implements ActionListener {
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object cmp = e.getSource();
+		switch ( ((JMenuItem) cmp).getText() ) {
+		case "Cliente" :
+			FormCliente fmtCli = new FormCliente();
+			fmtCli.setVisible(true);
+			break;
+		case "Sair" :
+			frmMenuPrincipal.dispose();
+			break;
+		}
+	}
+	  
+  }
 }

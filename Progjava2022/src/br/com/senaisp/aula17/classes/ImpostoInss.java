@@ -7,8 +7,8 @@ public class ImpostoInss extends Imposto {
 		double dblRet=0, dblBC = getBaseCalculo();
 		double dblTab[][] = {{ 0.00,    1212.00,  7.5 },
 				             { 1212.01, 2427.35,  9.00 },
-				             { 2427.36, 3641.03, 12.00},
-				             { 3641.04, 7087.22, 14.00}
+				             { 2427.36, 3641.03, 12.00 },
+				             { 3641.04, 7087.22, 14.00 }
 				            };
 		
 		for (int intI=0;intI<4;intI++) {

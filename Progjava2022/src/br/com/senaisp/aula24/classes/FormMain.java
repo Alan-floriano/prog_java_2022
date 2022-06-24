@@ -59,6 +59,7 @@ public class FormMain extends JFrame {
 		mntmCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormProduto frmPrd = new FormProduto();
+				produto.novo();
 				frmPrd.setProduto(produto);
 				frmPrd.setOperacao(1);
 				frmPrd.setVisible(true);
@@ -71,6 +72,15 @@ public class FormMain extends JFrame {
 		
 		JMenuItem mntmAlterar = new JMenuItem("Alterar");
 		mnProdutos.add(mntmAlterar);
+		mntmAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormProduto frmPrd = new FormProduto();
+				produto.novo();
+				frmPrd.setProduto(produto);
+				frmPrd.setOperacao(2);
+				frmPrd.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmExcluir = new JMenuItem("Excluir");
 		mnProdutos.add(mntmExcluir);

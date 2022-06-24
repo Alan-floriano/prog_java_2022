@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FormNave extends JFrame {
 
@@ -46,80 +46,69 @@ public class FormNave extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				Rectangle rec = lblNave.getBounds();
-				switch (e.getExtendedKeyCode()) {
-				case KeyEvent.VK_LEFT: rec.x -= 10; break;
-				case KeyEvent.VK_RIGHT: rec.x += 10; break;
-				case KeyEvent.VK_UP: rec.y -= 10; break;
-				case KeyEvent.VK_DOWN: rec.y += 10; break;
-				
-
+				switch(e.getExtendedKeyCode()) {
+				case KeyEvent.VK_LEFT : rec.x -= 10; break;
+				case KeyEvent.VK_RIGHT : rec.x += 10; break;
+				case KeyEvent.VK_UP : rec.y -= 10; break;
+				case KeyEvent.VK_DOWN : rec.y += 10; break;
 				}
 				lblNave.setBounds(rec);
 			}
 		});
 		EventoClick evt = new EventoClick();
 		
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 703, 427);
+		setBounds(100, 100, 630, 430);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.EAST);
 		panel.setLayout(new GridLayout(4, 1, 0, 0));
-
-		JButton btnNewButton_1 = new JButton("^");
+		
+		JButton btnNewButton = new JButton("^");
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("<");
 		panel.add(btnNewButton_1);
-
-		JButton btnNewButton_3 = new JButton("<");
-		panel.add(btnNewButton_3);
-
+		
 		JButton btnNewButton_2 = new JButton(">");
 		panel.add(btnNewButton_2);
-
-		JButton btnNewButton = new JButton("v");
-		panel.add(btnNewButton);
-
+		
+		JButton btnNewButton_3 = new JButton("v");
+		panel.add(btnNewButton_3);
+		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
-
+		
 		lblNave = new JLabel("<+>");
 		lblNave.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNave.setBounds(276, 176, 46, 14);
+		lblNave.setBounds(205, 128, 46, 14);
 		panel_1.add(lblNave);
+		
 		btnNewButton.addActionListener(evt);
 		btnNewButton_1.addActionListener(evt);
 		btnNewButton_2.addActionListener(evt);
-		btnNewButton_3.addActionListener(evt);
+		btnNewButton_3.addActionListener(evt);	
 	}
-
+	
 	class EventoClick implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 			Rectangle rec = lblNave.getBounds();
-			switch (((JButton) obj).getText()) {
-			case "^":
-				rec.y -= 10;
-				break;
-			case "<":
-				rec.x -= 10;
-				break;
-			case ">":
-				rec.x += 10;
-				break;
-			case "v":
-				rec.y += 10;
-				break;
-
+			switch ( ((JButton)obj).getText() ) {
+			case "^" : rec.y -= 10; break;
+			case "<" : rec.x -= 10; break;
+			case ">" : rec.x += 10; break;
+			case "v" : rec.y += 10; break;
 			}
 			lblNave.setBounds(rec);
 		}
-
+		
 	}
 }

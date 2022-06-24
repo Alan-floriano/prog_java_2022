@@ -78,7 +78,7 @@ public class Aula10Exe02 {
 		System.out.println("                Vendedor:" + strNomeQtdMaior);
 		System.out.println();
 		System.out.println("Menor Quantidade Vendida:" + intQtdPcMenor);
-		System.out.println("                 Vendedor:" + strNomeQtdMenor);
+		System.out.println("                Vendedor:" + strNomeQtdMenor);
 		System.out.println("----------------------------------------------");
 		System.out.println("Maior Valor de venda:" + dblTotMaior);
 		System.out.println("            Vendedor:" + strNomeTotMaior);

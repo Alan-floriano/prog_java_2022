@@ -35,9 +35,8 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-
+	
 	public double precoTotal() {
-		return this.preco * this.qtde;
-
+		return preco * qtde;
 	}
 }

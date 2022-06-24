@@ -24,8 +24,12 @@ public class Aula08Exe04 {
 			strNome = sc.nextLine();
 			System.out.println("Digite o endereço do paciente:");
 			strEndereco = sc.nextLine();
-			//Restringindo valores menores que o ano atual e ano atual - 200
-			//Ou seja a pessoa não pode ter mais de 199 anos
+			/*
+			 * Restringindo o usuário a digitar somente
+			 * Valores entre o ano atual - 200 e o ano atual - 1
+			 * Limitando assim a idade entre 1 e 199
+			 * 
+			 */
 			do {
 				System.out.println("Digite o ano de nascimento do paciente:");
 				intAnoNascimento = sc.nextInt();
@@ -34,7 +38,7 @@ public class Aula08Exe04 {
 					System.out.println("Ano de Nascimento inválido!");
 			} while (intAnoNascimento <= intAnoAtual - 200 || 
 					 intAnoNascimento >= intAnoAtual);
-			// Lógica de testes
+			// Início da lógica do programa
 			//Calculando a idade
 			intIdade = intAnoAtual - intAnoNascimento;
 			//Testando as idades
@@ -48,13 +52,26 @@ public class Aula08Exe04 {
 				strNomeMenor = strNome;
 				strEnderecoMenor = strEndereco;
 			}
-			//
+			/*
+			 * Restringindo o usuário a digitar somente 1 ou 2
+			 * 
+			 */
 			do {
 				System.out.println("Continuar? (1-Sim,2-Não)");
 				intResp = sc.nextInt();
 				if (intResp!=1 && intResp!=2) 
 					System.out.println("Valores permitidos são 1 ou 2!");
 			} while (intResp!=1 && intResp!=2);
+			/* 
+			 * Quando utilizamos sc.nextInt(), sc.next(), sc.nextDouble()
+			 * Qualquer sc sem o nextLine() e na sequência utilizamos
+			 * o sc.nextLine() o enter irá ser direcionado para ele
+			 * perdendo assim a entrada do dado. 
+			 * Experimente comentar a linha
+			 * abaixo e na pergunta de continuar responda 1 para continuar
+			 * você vai notar que o sc.nextLine() do nome será pulado
+			 *  
+			 */
 			sc.nextLine();
 		} while (intResp != 2);
 		System.out.println("Menor idade: "+ intIdadeMenor);
@@ -63,6 +80,6 @@ public class Aula08Exe04 {
 		System.out.println("Maior idade: "+ intIdadeMaior);
 		System.out.println("       Nome: "+ strNomeMaior);
 		System.out.println("   Endereço: "+ strEnderecoMaior);
+		sc.close();
 	}
-
 }

@@ -1,5 +1,6 @@
 package br.com.senaisp.aula18;
 
+import br.com.senaisp.aula17.classes.Imposto;
 import br.com.senaisp.aula17.classes.ImpostoInss;
 import br.com.senaisp.aula18.classes.ImpostoIrrf;
 
@@ -9,7 +10,17 @@ public class TesteImposto {
 		// TODO Auto-generated method stub
 		ImpostoInss imp = new ImpostoInss();
 		ImpostoIrrf impir = new ImpostoIrrf();
-		double dblSalario = 4000.00;
+		//Usando um constructor com valores iniciais nele
+		Imposto impap=null;
+		try {
+			impap = new Imposto(4000,15);
+			System.out.println(impap.calcularImposto());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			System.out.println("Ocorreu um erro na criação da classe");
+		}
+
+		double dblSalario = 10125.00;
 		
 		try {
 			imp.setBaseCalculo(dblSalario);

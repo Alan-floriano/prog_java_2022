@@ -1,4 +1,4 @@
-package br.com.senaisp.aula14.Classes;
+package br.com.senaisp.aula14.classes;
 
 public class Mamiferos {
 	public String Pele;
